@@ -1,7 +1,70 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2fyjq5q62qqw"]
+[gd_scene load_steps=10 format=3 uid="uid://c2fyjq5q62qqw"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bxhu2"]
-[ext_resource type="Texture2D" uid="uid://2xet373pieoj" path="res://assets/kid.png" id="1_duffs"]
+[ext_resource type="Texture2D" uid="uid://bn2fj84kbc584" path="res://assets/placeholders.png" id="2_ao41y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gv62"]
+atlas = ExtResource("2_ao41y")
+region = Rect2(144, 0, 72, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vic7p"]
+atlas = ExtResource("2_ao41y")
+region = Rect2(0, 0, 72, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lo4sj"]
+atlas = ExtResource("2_ao41y")
+region = Rect2(288, 0, 72, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqi11"]
+atlas = ExtResource("2_ao41y")
+region = Rect2(72, 0, 72, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6061i"]
+atlas = ExtResource("2_ao41y")
+region = Rect2(216, 0, 72, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jn31r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gv62")
+}],
+"loop": true,
+"name": &"crouch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vic7p")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lo4sj")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqi11")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6061i")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dkio1"]
 size = Vector2(4, 10)
@@ -9,12 +72,11 @@ size = Vector2(4, 10)
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_bxhu2")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_duffs")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
+sprite_frames = SubResource("SpriteFrames_jn31r")
+animation = &"crouch"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
