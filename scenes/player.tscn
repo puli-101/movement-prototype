@@ -72,8 +72,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o0eax"]
-radius = 11.8421
-height = 35.5263
+radius = 9.21053
+height = 40.7895
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "jump_component")]
 script = ExtResource("1_bxhu2")
@@ -86,7 +86,7 @@ jump_component = NodePath("JumpComponent")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -1)
 sprite_frames = SubResource("SpriteFrames_jn31r")
-animation = &"jump"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -98,6 +98,8 @@ shape = SubResource("CapsuleShape2D_o0eax")
 [node name="InputComponent" parent="." instance=ExtResource("4_mom40")]
 
 [node name="MovementComponent" parent="." instance=ExtResource("5_btx7o")]
+ground_accel_speed = 12.0
+air_decel_speed = 8.0
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("6_gkq1p")]
 sprite = NodePath("../AnimatedSprite2D")
