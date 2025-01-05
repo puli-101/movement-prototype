@@ -9,6 +9,7 @@ distance = -2.0
 
 [node name="Player" parent="." instance=ExtResource("1_scsoi")]
 position = Vector2(0, -6)
+scale = Vector2(0.266667, 0.266667)
 
 [node name="Floor" type="StaticBody2D" parent="."]
 

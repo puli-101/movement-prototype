@@ -1,7 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2fyjq5q62qqw"]
+[gd_scene load_steps=15 format=3 uid="uid://c2fyjq5q62qqw"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bxhu2"]
 [ext_resource type="Texture2D" uid="uid://bn2fj84kbc584" path="res://assets/placeholders.png" id="2_ao41y"]
+[ext_resource type="PackedScene" uid="uid://gcjeaid88w0v" path="res://scenes/components/gravity_component.tscn" id="3_rapeq"]
+[ext_resource type="PackedScene" uid="uid://jme0o2q5dj0k" path="res://scenes/components/input_component.tscn" id="4_mom40"]
+[ext_resource type="PackedScene" uid="uid://46qraosk1hc4" path="res://scenes/components/movement_component.tscn" id="5_btx7o"]
+[ext_resource type="PackedScene" uid="uid://deiusueimoywy" path="res://scenes/components/animation_component.tscn" id="6_gkq1p"]
+[ext_resource type="PackedScene" uid="uid://4o2le0t6xc67" path="res://scenes/components/jump_component.tscn" id="7_bvak3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8gv62"]
 atlas = ExtResource("2_ao41y")
@@ -66,18 +71,35 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkio1"]
-size = Vector2(4, 10)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o0eax"]
+radius = 11.8421
+height = 35.5263
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "jump_component")]
 script = ExtResource("1_bxhu2")
+gravity_component = NodePath("GravityComponent")
+input_component = NodePath("InputComponent")
+movement_component = NodePath("MovementComponent")
+animation_component = NodePath("AnimationComponent")
+jump_component = NodePath("JumpComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
+position = Vector2(1, -1)
 sprite_frames = SubResource("SpriteFrames_jn31r")
-animation = &"crouch"
+animation = &"jump"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_dkio1")
+scale = Vector2(1.52, 1.52)
+shape = SubResource("CapsuleShape2D_o0eax")
+
+[node name="GravityComponent" parent="." instance=ExtResource("3_rapeq")]
+
+[node name="InputComponent" parent="." instance=ExtResource("4_mom40")]
+
+[node name="MovementComponent" parent="." instance=ExtResource("5_btx7o")]
+
+[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("6_gkq1p")]
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="JumpComponent" parent="." instance=ExtResource("7_bvak3")]
