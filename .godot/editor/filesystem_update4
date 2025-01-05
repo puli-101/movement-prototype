@@ -6,3 +6,7 @@ res://scenes/components/animation_component.tscn
 res://scenes/components/input_component.tscn
 res://scenes/components/jump_component.tscn
 res://scripts/component_scripts/movement_component.gd
+res://scenes/components/advance_jump_component.tscn
+res://scripts/component_scripts/advance_jump_component.gd
+res://scripts/component_scripts/input_component.gd
+res://scripts/player.gd
