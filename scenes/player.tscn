@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c2fyjq5q62qqw"]
+[gd_scene load_steps=17 format=3 uid="uid://c2fyjq5q62qqw"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bxhu2"]
 [ext_resource type="Texture2D" uid="uid://bn2fj84kbc584" path="res://assets/placeholders.png" id="2_ao41y"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://46qraosk1hc4" path="res://scenes/components/movement_component.tscn" id="5_btx7o"]
 [ext_resource type="PackedScene" uid="uid://deiusueimoywy" path="res://scenes/components/animation_component.tscn" id="6_gkq1p"]
 [ext_resource type="PackedScene" uid="uid://dek6esi6am4cx" path="res://scenes/components/advance_jump_component.tscn" id="7_71ktj"]
+[ext_resource type="Script" path="res://scripts/state_machines/player_sm.gd" id="8_k7c01"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8gv62"]
 atlas = ExtResource("2_ao41y")
@@ -72,8 +73,12 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o0eax"]
-radius = 9.21053
-height = 40.7895
+radius = 12.5
+height = 36.8421
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cndnl"]
+radius = 13.0
+height = 26.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "advanced_jump_component")]
 script = ExtResource("1_bxhu2")
@@ -86,12 +91,16 @@ advanced_jump_component = NodePath("AdvanceJumpComponent")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -1)
 sprite_frames = SubResource("SpriteFrames_jn31r")
-animation = &"idle"
+animation = &"slide"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="StandingCollision" type="CollisionShape2D" parent="."]
 scale = Vector2(1.52, 1.52)
 shape = SubResource("CapsuleShape2D_o0eax")
+
+[node name="CrouchCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 16)
+shape = SubResource("CapsuleShape2D_cndnl")
 
 [node name="GravityComponent" parent="." instance=ExtResource("3_rapeq")]
 
@@ -106,3 +115,7 @@ air_decel_speed = 8.0
 sprite = NodePath("../AnimatedSprite2D")
 
 [node name="AdvanceJumpComponent" parent="." instance=ExtResource("7_71ktj")]
+
+[node name="PlayerSM" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("8_k7c01")
+sprite = NodePath("../AnimatedSprite2D")

@@ -17,32 +17,20 @@ var speed = STD_SPEED
 const LEAP_INPULSE = Vector2(500,0)
 
 #updates every 1/60s
-func _physics_process(delta: float) -> void:
+func _move_player(delta) -> void:
 	# Add the gravity.
 	gravity_component.handle_gravity(self, delta)
 	
 	#Get input and handle horizontal movement
-	movement_component.handle_horizontal_movement(self, input_component.input_horizontal)
+	movement_component.handle_horizontal_movement(self, input_component.input_horizontal, input_component.get_crouch_input())
 	
 	#Handle animations
-	animation_component.handle_move_animation(input_component.input_horizontal)
-	animation_component.handle_jump_animation(advanced_jump_component.is_going_up, gravity_component.is_falling)
+	animation_component.handle_horizontal_flip(input_component.input_horizontal)
 	
 	#Handle jump
 	advanced_jump_component.handle_jump(self, input_component.get_jump_input(), input_component.get_jump_imput_released())
 	
-	
-	#Handle crouching speeds
-	if Input.is_action_pressed("crouch"):
-		speed = CROUCH_SPEED
-	else:
-		speed = STD_SPEED
-	
 	#Handle slide
-	if Input.is_action_pressed("crouch") and Input.is_action_just_pressed("impulse") and is_on_floor():
-		print("slide triggered")
-		#Modify collision shape
-		#Change sprite
-
+	movement_component.handle_slide(self, input_component.input_horizontal, input_component.get_crouch_input(), input_component.get_slide_input())
 	
 	move_and_slide()

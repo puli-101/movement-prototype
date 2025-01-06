@@ -14,3 +14,11 @@ func get_jump_input() -> bool:
 #Check if jump button was released
 func get_jump_imput_released() -> bool:
 	return Input.is_action_just_released("jump")
+
+#Check if crouch button is pressed
+func get_crouch_input() -> bool:
+	return Input.is_action_pressed("crouch")
+
+#Check if impulse button was pressed
+func get_slide_input() -> bool:
+	return Input.is_action_just_pressed("impulse")

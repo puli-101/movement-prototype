@@ -10,3 +10,8 @@ res://scenes/components/advance_jump_component.tscn
 res://scripts/component_scripts/advance_jump_component.gd
 res://scripts/component_scripts/input_component.gd
 res://scripts/player.gd
+res://scripts/component_scripts/animation_component.gd
+res://scenes/components/sliding_component.tscn
+res://scripts/component_scripts/sliding_component.gd
+res://scripts/state_machines/player_sm.gd
+res://scripts/state_machines/state_machine.gd

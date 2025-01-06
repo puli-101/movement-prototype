@@ -14,7 +14,7 @@ var is_going_up: bool = false
 var is_jumping: bool = false
 var last_frame_on_floor: bool = false
 
-#Dtermine if player has just landed
+#Determine if player has just landed
 func has_just_landed(body: CharacterBody2D) -> bool:
 	return body.is_on_floor() and not last_frame_on_floor and is_jumping
 
