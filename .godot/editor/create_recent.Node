@@ -1,4 +1,5 @@
-Node
-CollisionShape2D
 Timer
+CollisionShape2D
+Area2D
+Node
 TileMapLayer

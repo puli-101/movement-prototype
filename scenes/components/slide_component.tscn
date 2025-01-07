@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2fcwr4k5ctgt"]
+
+[ext_resource type="Script" path="res://scripts/component_scripts/slide_component.gd" id="1_nibmc"]
+
+[node name="SlideComponent" type="Node" node_paths=PackedStringArray("slide_time")]
+script = ExtResource("1_nibmc")
+slide_time = NodePath("SlideTime")
+
+[node name="SlideTime" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="SlideTime" to="." method="_on_slide_time_timeout"]

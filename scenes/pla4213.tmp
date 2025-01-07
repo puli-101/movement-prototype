@@ -84,7 +84,7 @@ height = 26.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gyqmg"]
 radius = 14.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "advanced_jump_component", "player_state_machine", "slide_component")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "advanced_jump_component", "player_state_machine")]
 collision_layer = 2
 script = ExtResource("1_bxhu2")
 gravity_component = NodePath("GravityComponent")
@@ -93,7 +93,6 @@ movement_component = NodePath("MovementComponent")
 animation_component = NodePath("AnimationComponent")
 advanced_jump_component = NodePath("AdvanceJumpComponent")
 player_state_machine = NodePath("PlayerSM")
-slide_component = NodePath("SlideComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -1)
