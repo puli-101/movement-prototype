@@ -11,6 +11,7 @@ class_name MovementComponent
 @export var air_decel_speed: float = 3.0
 
 func handle_horizontal_movement(body: CharacterBody2D, direction: float, states: Dictionary, state: int) -> void:
+	#print(body.velocity.x)
 	if not [states.idle_crouch, states.run_crouch].has(state):
 		var velocity_change_speed: float = 0.0
 		if body.is_on_floor():

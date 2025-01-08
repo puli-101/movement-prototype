@@ -114,9 +114,10 @@ shape = SubResource("CapsuleShape2D_cndnl")
 [node name="InputComponent" parent="." instance=ExtResource("4_mom40")]
 
 [node name="MovementComponent" parent="." instance=ExtResource("5_btx7o")]
-speed = 112.0
-ground_accel_speed = 12.0
-air_decel_speed = 8.0
+ground_accel_speed = 10.0
+ground_decel_speed = 20.0
+air_accel_speed = 4.0
+air_decel_speed = 10.0
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("6_gkq1p")]
 sprite = NodePath("../AnimatedSprite2D")

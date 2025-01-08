@@ -13,6 +13,8 @@ class_name AdvancedJumpComponent
 var is_going_up: bool = false
 var is_jumping: bool = false
 var last_frame_on_floor: bool = false
+var released_during_buffer: bool = false
+
 
 #Determine if player has just landed
 func has_just_landed(body: CharacterBody2D) -> bool:
@@ -34,8 +36,9 @@ func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool)
 	if is_allowed_to_jump(body, want_to_jump):
 		jump(body)
 	
+	
 	handle_coyote_time(body) #If player wants to jump after falling off a ledge
-	handle_jump_buffer(body, want_to_jump) #If player wants to jump and is not on floor
+	handle_jump_buffer(body, want_to_jump, jump_released) #If player wants to jump and is not on floor
 	handle_jump_height(body, jump_released)#If player wants to stop jumping 
 	
 	is_going_up = body.velocity.y < 0 and not body.is_on_floor()
@@ -43,13 +46,16 @@ func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool)
 
 #Stop jumping if jump button is released before reaching max height
 func handle_jump_height(body: CharacterBody2D, jump_released:bool) -> void:
-	if jump_released and is_going_up:
+	if (jump_released or released_during_buffer) and is_going_up:
+		released_during_buffer = false
 		body.velocity.y = 0
 
 #Let player jump if they pressed jump button before touching the floor
-func handle_jump_buffer(body: CharacterBody2D, want_to_jump: bool) -> void:
+func handle_jump_buffer(body: CharacterBody2D, want_to_jump: bool, jump_released:bool) -> void:
 	if want_to_jump and not body.is_on_floor():
 		jump_buffer_timer.start()
+	if jump_buffer_timer.time_left > 0 and jump_released:
+		released_during_buffer = true
 	if body.is_on_floor() and not jump_buffer_timer.is_stopped():
 		jump(body)
 
