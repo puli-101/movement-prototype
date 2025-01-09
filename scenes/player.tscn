@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c2fyjq5q62qqw"]
+[gd_scene load_steps=18 format=3 uid="uid://c2fyjq5q62qqw"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bxhu2"]
 [ext_resource type="Texture2D" uid="uid://bn2fj84kbc584" path="res://assets/placeholders.png" id="2_ao41y"]
@@ -73,18 +73,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o0eax"]
-radius = 12.5
-height = 36.8421
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dvlc"]
+size = Vector2(20, 33.5526)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cndnl"]
-radius = 13.0
-height = 26.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t4sjq"]
+size = Vector2(31, 24.375)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gyqmg"]
-radius = 14.0
-
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "advanced_jump_component", "player_state_machine", "slide_component")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "advanced_jump_component", "player_state_machine", "slide_component", "crouch_collision_check")]
 collision_layer = 2
 script = ExtResource("1_bxhu2")
 gravity_component = NodePath("GravityComponent")
@@ -94,20 +89,22 @@ animation_component = NodePath("AnimationComponent")
 advanced_jump_component = NodePath("AdvanceJumpComponent")
 player_state_machine = NodePath("PlayerSM")
 slide_component = NodePath("SlideComponent")
+crouch_collision_check = NodePath("CrouchCollisionCheck")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -1)
+position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_jn31r")
 animation = &"slide"
 autoplay = "idle"
 
 [node name="StandingCollision" type="CollisionShape2D" parent="."]
 scale = Vector2(1.52, 1.52)
-shape = SubResource("CapsuleShape2D_o0eax")
+shape = SubResource("RectangleShape2D_3dvlc")
 
 [node name="CrouchCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 16)
-shape = SubResource("CapsuleShape2D_cndnl")
+position = Vector2(0, 13)
+scale = Vector2(0.98, 1.04)
+shape = SubResource("RectangleShape2D_t4sjq")
 
 [node name="GravityComponent" parent="." instance=ExtResource("3_rapeq")]
 
@@ -116,7 +113,6 @@ shape = SubResource("CapsuleShape2D_cndnl")
 [node name="MovementComponent" parent="." instance=ExtResource("5_btx7o")]
 ground_accel_speed = 10.0
 ground_decel_speed = 20.0
-air_accel_speed = 4.0
 air_decel_speed = 10.0
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("6_gkq1p")]
@@ -130,11 +126,5 @@ sprite = NodePath("../AnimatedSprite2D")
 script = ExtResource("8_k7c01")
 sprite = NodePath("../AnimatedSprite2D")
 
-[node name="CrouchingTopArea" type="Area2D" parent="."]
-
-[node name="TopCollision" type="CollisionShape2D" parent="CrouchingTopArea"]
-position = Vector2(0, -13)
-shape = SubResource("CapsuleShape2D_gyqmg")
-
-[connection signal="body_entered" from="CrouchingTopArea" to="." method="_on_crouching_top_area_body_entered"]
-[connection signal="body_exited" from="CrouchingTopArea" to="." method="_on_crouching_top_area_body_exited"]
+[node name="CrouchCollisionCheck" type="RayCast2D" parent="."]
+target_position = Vector2(0, -25)

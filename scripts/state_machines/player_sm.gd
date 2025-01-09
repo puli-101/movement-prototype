@@ -108,7 +108,6 @@ func _get_transition(_delta):
 					elif parent.velocity.y > 0:
 						return states.fall
 			elif not parent.slide_component.is_sliding:
-				print('AA')
 				if parent.input_component.get_crouch_input():
 					if parent.velocity.x == 0:
 						return states.idle_crouch

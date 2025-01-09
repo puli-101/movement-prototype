@@ -8,3 +8,5 @@ res://scenes/components/gravity_component.tscn
 res://scenes/components/slide_component.tscn
 res://scripts/component_scripts/advance_jump_component.gd
 res://scripts/component_scripts/movement_component.gd
+res://scripts/player.gd
+res://scripts/state_machines/player_sm.gd

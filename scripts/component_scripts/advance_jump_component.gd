@@ -25,15 +25,15 @@ func has_just_stepped_off_ledge(body: CharacterBody2D) -> bool:
 	return not body.is_on_floor() and last_frame_on_floor and not is_jumping
 
 #Determine if player is allowed to jump
-func is_allowed_to_jump(body: CharacterBody2D, want_to_jump: bool) -> bool:
-	return want_to_jump and (body.is_on_floor() or not coyote_timer.is_stopped())
+func is_allowed_to_jump(body: CharacterBody2D, want_to_jump: bool, can_uncrouch: bool) -> bool:
+	return want_to_jump and (body.is_on_floor() or not coyote_timer.is_stopped()) and can_uncrouch
 
 #Determine if player wants to jump
-func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool) -> void:
+func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool, can_uncrouch: bool) -> void:
 	if has_just_landed(body):
 		is_jumping = false 
 	
-	if is_allowed_to_jump(body, want_to_jump):
+	if is_allowed_to_jump(body, want_to_jump, can_uncrouch):
 		jump(body)
 	
 	
