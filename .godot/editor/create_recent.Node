@@ -1,6 +1,8 @@
-RayCast2D
-Timer
-CollisionShape2D
-Area2D
 Node
+Timer
+RayCast2D
+Camera2D
 TileMapLayer
+CollisionShape2D
+AnimatedSprite2D
+CharacterBody2D

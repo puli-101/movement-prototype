@@ -32,6 +32,7 @@ func is_allowed_to_jump(body: CharacterBody2D, want_to_jump: bool, can_uncrouch:
 #Determine if player wants to jump
 func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool, can_uncrouch: bool) -> void:
 	if has_just_landed(body):
+		body.animations.scale = Vector2(1.2, 0.7)
 		is_jumping = false 
 	
 	if is_allowed_to_jump(body, want_to_jump, can_uncrouch):
@@ -73,15 +74,18 @@ func handle_coyote_time(body: CharacterBody2D) -> void:
 
 #Jump action
 func jump(body:CharacterBody2D) -> void:
+	body.animations.scale = Vector2(0.7, 1.2)
 	body.velocity.y = jump_velocity
 	is_jumping = true
 	jump_buffer_timer.stop() #Stop buffer to avoid double jumping
 	coyote_timer.stop() #Stop coyote time to avoid double jumping
 
-
+#Wall jump
 func wall_jump(body:CharacterBody2D) -> void:
+	body.get_wall_normal().x
 	body.velocity.y = jump_velocity
-	body.velocity.x = walll_jump_velocity
+	body.velocity.x = walll_jump_velocity * body.get_wall_normal().x
 	is_jumping = true
 	jump_buffer_timer.stop() #Stop buffer to avoid double jumping
 	coyote_timer.stop() #Stop coyote time to avoid double jumping
+	

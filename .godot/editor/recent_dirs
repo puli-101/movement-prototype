@@ -1,2 +1,4 @@
-res://scripts/component_scripts
-res://scripts/state_machines
+res://assets
+res://scripts/states
+res://scripts/components
+res://scenes

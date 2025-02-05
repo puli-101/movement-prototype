@@ -1,40 +1,55 @@
-[gd_scene load_steps=18 format=3 uid="uid://c2fyjq5q62qqw"]
+[gd_scene load_steps=27 format=3 uid="uid://q6gm0d515tcr"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_bxhu2"]
-[ext_resource type="Texture2D" uid="uid://bn2fj84kbc584" path="res://assets/placeholders.png" id="2_ao41y"]
-[ext_resource type="PackedScene" uid="uid://gcjeaid88w0v" path="res://scenes/components/gravity_component.tscn" id="3_rapeq"]
-[ext_resource type="PackedScene" uid="uid://jme0o2q5dj0k" path="res://scenes/components/input_component.tscn" id="4_mom40"]
-[ext_resource type="PackedScene" uid="uid://46qraosk1hc4" path="res://scenes/components/movement_component.tscn" id="5_btx7o"]
-[ext_resource type="PackedScene" uid="uid://deiusueimoywy" path="res://scenes/components/animation_component.tscn" id="6_gkq1p"]
-[ext_resource type="PackedScene" uid="uid://dek6esi6am4cx" path="res://scenes/components/advance_jump_component.tscn" id="7_71ktj"]
-[ext_resource type="Script" path="res://scripts/state_machines/player_sm.gd" id="8_k7c01"]
-[ext_resource type="PackedScene" uid="uid://b2fcwr4k5ctgt" path="res://scenes/components/slide_component.tscn" id="8_pt0cd"]
+[ext_resource type="Texture2D" uid="uid://bn2fj84kbc584" path="res://assets/placeholders.png" id="1_46tqb"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_vcj7m"]
+[ext_resource type="Script" path="res://scripts/components/gravity_component.gd" id="2_fd3hf"]
+[ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="2_mtrbb"]
+[ext_resource type="Script" path="res://scripts/states/idle.gd" id="4_cmk7a"]
+[ext_resource type="Script" path="res://scripts/components/input_component.gd" id="4_ov4dd"]
+[ext_resource type="Script" path="res://scripts/components/movement_component.gd" id="5_ywfyl"]
+[ext_resource type="Script" path="res://scripts/components/advanced_jump_component.gd" id="6_55nqt"]
+[ext_resource type="Script" path="res://scripts/components/crouch_component.gd" id="6_evhlh"]
+[ext_resource type="Script" path="res://scripts/components/slide_component.gd" id="7_gn86b"]
+[ext_resource type="Script" path="res://scripts/states/run.gd" id="8_558bb"]
+[ext_resource type="Script" path="res://scripts/states/jump.gd" id="10_4h282"]
+[ext_resource type="Script" path="res://scripts/states/fall.gd" id="11_0byen"]
+[ext_resource type="Script" path="res://scripts/states/crouch.gd" id="13_ckr6c"]
+[ext_resource type="Script" path="res://scripts/states/slide.gd" id="15_4wpwp"]
+[ext_resource type="Script" path="res://scripts/states/wall_slide.gd" id="16_1j2yt"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8gv62"]
-atlas = ExtResource("2_ao41y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhxun"]
+atlas = ExtResource("1_46tqb")
 region = Rect2(144, 0, 72, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vic7p"]
-atlas = ExtResource("2_ao41y")
-region = Rect2(0, 0, 72, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lo4sj"]
-atlas = ExtResource("2_ao41y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_bq6l6"]
+atlas = ExtResource("1_46tqb")
 region = Rect2(288, 0, 72, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kqi11"]
-atlas = ExtResource("2_ao41y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcs5n"]
+atlas = ExtResource("1_46tqb")
+region = Rect2(0, 0, 72, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vejf"]
+atlas = ExtResource("1_46tqb")
+region = Rect2(288, 0, 72, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kj8gb"]
+atlas = ExtResource("1_46tqb")
 region = Rect2(72, 0, 72, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6061i"]
-atlas = ExtResource("2_ao41y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_g88sj"]
+atlas = ExtResource("1_46tqb")
 region = Rect2(216, 0, 72, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_jn31r"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_llvl2"]
+atlas = ExtResource("1_46tqb")
+region = Rect2(72, 64, 72, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iec13"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8gv62")
+"texture": SubResource("AtlasTexture_mhxun")
 }],
 "loop": true,
 "name": &"crouch",
@@ -42,7 +57,15 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vic7p")
+"texture": SubResource("AtlasTexture_bq6l6")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcs5n")
 }],
 "loop": true,
 "name": &"idle",
@@ -50,7 +73,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lo4sj")
+"texture": SubResource("AtlasTexture_0vejf")
 }],
 "loop": true,
 "name": &"jump",
@@ -58,7 +81,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kqi11")
+"texture": SubResource("AtlasTexture_kj8gb")
 }],
 "loop": true,
 "name": &"run",
@@ -66,65 +89,109 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6061i")
+"texture": SubResource("AtlasTexture_g88sj")
 }],
 "loop": true,
 "name": &"slide",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llvl2")
+}],
+"loop": true,
+"name": &"wall_slide",
+"speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dvlc"]
-size = Vector2(20, 33.5526)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ysay7"]
+radius = 15.0
+height = 54.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t4sjq"]
-size = Vector2(31, 24.375)
+[sub_resource type="CircleShape2D" id="CircleShape2D_kh6cm"]
+radius = 14.0022
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "advanced_jump_component", "player_state_machine", "slide_component", "crouch_collision_check")]
-collision_layer = 2
-script = ExtResource("1_bxhu2")
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "advanced_jump_component", "crouch_component", "slide_component")]
+script = ExtResource("1_vcj7m")
 gravity_component = NodePath("GravityComponent")
 input_component = NodePath("InputComponent")
 movement_component = NodePath("MovementComponent")
-animation_component = NodePath("AnimationComponent")
-advanced_jump_component = NodePath("AdvanceJumpComponent")
-player_state_machine = NodePath("PlayerSM")
+advanced_jump_component = NodePath("AdvancedJumpComponent")
+crouch_component = NodePath("CrouchComponent")
 slide_component = NodePath("SlideComponent")
-crouch_collision_check = NodePath("CrouchCollisionCheck")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -4)
-sprite_frames = SubResource("SpriteFrames_jn31r")
-animation = &"slide"
+[node name="Animations" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -2)
+sprite_frames = SubResource("SpriteFrames_iec13")
+animation = &"wall_slide"
 autoplay = "idle"
 
 [node name="StandingCollision" type="CollisionShape2D" parent="."]
-scale = Vector2(1.52, 1.52)
-shape = SubResource("RectangleShape2D_3dvlc")
+shape = SubResource("CapsuleShape2D_ysay7")
 
 [node name="CrouchCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 13)
-scale = Vector2(0.98, 1.04)
-shape = SubResource("RectangleShape2D_t4sjq")
-
-[node name="GravityComponent" parent="." instance=ExtResource("3_rapeq")]
-
-[node name="InputComponent" parent="." instance=ExtResource("4_mom40")]
-
-[node name="MovementComponent" parent="." instance=ExtResource("5_btx7o")]
-ground_accel_speed = 10.0
-ground_decel_speed = 20.0
-air_decel_speed = 10.0
-
-[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("6_gkq1p")]
-sprite = NodePath("../AnimatedSprite2D")
-
-[node name="AdvanceJumpComponent" parent="." instance=ExtResource("7_71ktj")]
-
-[node name="SlideComponent" parent="." instance=ExtResource("8_pt0cd")]
-
-[node name="PlayerSM" type="Node" parent="." node_paths=PackedStringArray("sprite")]
-script = ExtResource("8_k7c01")
-sprite = NodePath("../AnimatedSprite2D")
+position = Vector2(0, 13.25)
+shape = SubResource("CircleShape2D_kh6cm")
 
 [node name="CrouchCollisionCheck" type="RayCast2D" parent="."]
-target_position = Vector2(0, -25)
+target_position = Vector2(0, -27)
+
+[node name="GravityComponent" type="Node" parent="."]
+script = ExtResource("2_fd3hf")
+
+[node name="InputComponent" type="Node" parent="."]
+script = ExtResource("4_ov4dd")
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("5_ywfyl")
+
+[node name="CrouchComponent" type="Node" parent="."]
+script = ExtResource("6_evhlh")
+
+[node name="SlideComponent" type="Node" parent="." node_paths=PackedStringArray("slide_time")]
+script = ExtResource("7_gn86b")
+slide_time = NodePath("SlideTimer")
+
+[node name="SlideTimer" type="Timer" parent="SlideComponent"]
+wait_time = 0.2
+one_shot = true
+
+[node name="AdvancedJumpComponent" type="Node" parent="." node_paths=PackedStringArray("jump_buffer_timer", "coyote_timer")]
+script = ExtResource("6_55nqt")
+jump_buffer_timer = NodePath("JumpBufferTimer")
+coyote_timer = NodePath("CoyoteTimer")
+
+[node name="JumpBufferTimer" type="Timer" parent="AdvancedJumpComponent"]
+wait_time = 0.1
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="AdvancedJumpComponent"]
+wait_time = 0.08
+one_shot = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_mtrbb")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_cmk7a")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("8_558bb")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("10_4h282")
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource("11_0byen")
+
+[node name="Crouch" type="Node" parent="StateMachine"]
+script = ExtResource("13_ckr6c")
+
+[node name="Slide" type="Node" parent="StateMachine"]
+script = ExtResource("15_4wpwp")
+
+[node name="WallSlide" type="Node" parent="StateMachine"]
+script = ExtResource("16_1j2yt")
+
+[connection signal="timeout" from="SlideComponent/SlideTimer" to="StateMachine/Slide" method="_on_slide_timer_timeout"]
