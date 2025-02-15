@@ -26,19 +26,19 @@ func has_just_stepped_off_ledge(body: CharacterBody2D) -> bool:
 	return not body.is_on_floor() and last_frame_on_floor and not is_jumping
 
 #Determine if player is allowed to jump
-func is_allowed_to_jump(body: CharacterBody2D, want_to_jump: bool, can_uncrouch: bool) -> bool:
-	return want_to_jump and (body.is_on_floor() or not coyote_timer.is_stopped()) and can_uncrouch
+func is_allowed_to_jump(body: CharacterBody2D, want_to_jump: bool) -> bool:
+	return want_to_jump and (body.is_on_floor() or not coyote_timer.is_stopped())
 
 #Determine if player wants to jump
-func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool, can_uncrouch: bool) -> void:
+func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool, can_wall_jump: bool) -> void:
 	if has_just_landed(body):
-		body.animations.scale = Vector2(1.2, 0.7)
+		body.animations.scale = Vector2(1.2, 0.7) #Squash sprite
 		is_jumping = false 
 	
-	if is_allowed_to_jump(body, want_to_jump, can_uncrouch):
+	if is_allowed_to_jump(body, want_to_jump):
 		jump(body)
 	
-	if body.is_on_wall_only() and want_to_jump:
+	if body.is_on_wall_only() and want_to_jump and can_wall_jump:
 		wall_jump(body)
 	
 	handle_coyote_time(body) #If player wants to jump after falling off a ledge
@@ -74,7 +74,7 @@ func handle_coyote_time(body: CharacterBody2D) -> void:
 
 #Jump action
 func jump(body:CharacterBody2D) -> void:
-	body.animations.scale = Vector2(0.7, 1.2)
+	body.animations.scale = Vector2(0.7, 1.2) #Stretch sprite
 	body.velocity.y = jump_velocity
 	is_jumping = true
 	jump_buffer_timer.stop() #Stop buffer to avoid double jumping
@@ -82,7 +82,6 @@ func jump(body:CharacterBody2D) -> void:
 
 #Wall jump
 func wall_jump(body:CharacterBody2D) -> void:
-	body.get_wall_normal().x
 	body.velocity.y = jump_velocity
 	body.velocity.x = walll_jump_velocity * body.get_wall_normal().x
 	is_jumping = true

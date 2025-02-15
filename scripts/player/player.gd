@@ -18,7 +18,8 @@ class_name Player
 
 
 #Variables
-var can_uncrouch = true
+var can_wall_jump = true
+var last_direction = 1.0
 
 func _ready() -> void:
 	state_machine.init(self)
@@ -28,10 +29,11 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	#COMPONENTS CALLED FOR EVERY STATE
-	gravity_component.handle_gravity(self, delta)
-	advanced_jump_component.handle_jump(self, input_component.get_jump_input(), input_component.get_jump_imput_released(), can_uncrouch)
+	advanced_jump_component.handle_jump(self, input_component.get_jump_input(), input_component.get_jump_imput_released(), can_wall_jump)
+	
 	#Handle horizontal flip for animations
 	handle_horizontal_flip(input_component.get_horizontal_input())
+	get_last_direction_pressed(input_component.get_horizontal_input())
 	
 	#STATE MACHINE
 	state_machine.process_physics(delta)
@@ -46,3 +48,10 @@ func handle_horizontal_flip(move_direction: float) -> void:
 		return
 	
 	animations.flip_h = false if move_direction > 0 else true
+
+func get_last_direction_pressed(move_direction: float) -> void:
+	if move_direction == 0:
+		return
+	else: 
+		last_direction = move_direction
+	

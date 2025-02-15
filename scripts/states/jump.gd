@@ -4,10 +4,11 @@ func enter():
 	parent.animations.play('jump')
 	parent.standing_collision.disabled = false
 
-func physics_update(_delta):
+func physics_update(delta):
 	#Handle horizontal movement
 	parent.movement_component.handle_horizontal_movement(parent, parent.input_component.get_horizontal_input())
-
+	parent.gravity_component.apply_jump_gravity(parent, delta)
+	
 func update(_delta):
 	#TRANSITIONS
 	if !parent.is_on_floor():

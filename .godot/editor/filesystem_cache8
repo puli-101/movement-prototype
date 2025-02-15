@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1738788676
+::res://::1739236779
 icon.svg::CompressedTexture2D::8114579416001191364::1737759589::1737759595::1::::<><>::
 README.md::TextFile::-1::1736024262::0::1::::<><>::
 ::res://assets/::1738788116
@@ -7,9 +7,9 @@ Dungeon Tile Set.png::CompressedTexture2D::6787919312779767632::1736094332::1737
 kid.png::CompressedTexture2D::1942857786005609893::1736012373::1737759617::1::::<><>::
 placeholders.png::CompressedTexture2D::3354935285981800215::1738779756::1738779760::1::::<><>::
 Placeholder_BG.png::CompressedTexture2D::6549777608819278411::1737760738::1737760741::1::::<><>::
-::res://scenes/::1738788619
-game.tscn::PackedScene::2271216822370911627::1738788618::0::1::::<><>::uid://q6gm0d515tcr::::res://scenes/player.tscn<>uid://c0k046uvs3u4b::::res://assets/Placeholder_BG.png
-player.tscn::PackedScene::1187404259185004209::1738788619::0::1::::<><>::uid://bn2fj84kbc584::::res://assets/placeholders.png<>res://scripts/player/player.gd<>res://scripts/components/gravity_component.gd<>res://scripts/states/state_machine.gd<>res://scripts/states/idle.gd<>res://scripts/components/input_component.gd<>res://scripts/components/movement_component.gd<>res://scripts/components/advanced_jump_component.gd<>res://scripts/components/crouch_component.gd<>res://scripts/components/slide_component.gd<>res://scripts/states/run.gd<>res://scripts/states/jump.gd<>res://scripts/states/fall.gd<>res://scripts/states/crouch.gd<>res://scripts/states/slide.gd<>res://scripts/states/wall_slide.gd
+::res://scenes/::1738791651
+game.tscn::PackedScene::2271216822370911627::1738791651::0::1::::<><>::uid://q6gm0d515tcr::::res://scenes/player.tscn<>uid://c0k046uvs3u4b::::res://assets/Placeholder_BG.png
+player.tscn::PackedScene::1187404259185004209::1738791651::0::1::::<><>::uid://bn2fj84kbc584::::res://assets/placeholders.png<>res://scripts/player/player.gd<>res://scripts/components/gravity_component.gd<>res://scripts/states/state_machine.gd<>res://scripts/states/idle.gd<>res://scripts/components/input_component.gd<>res://scripts/components/movement_component.gd<>res://scripts/components/advanced_jump_component.gd<>res://scripts/components/crouch_component.gd<>res://scripts/components/slide_component.gd<>res://scripts/states/run.gd<>res://scripts/states/jump.gd<>res://scripts/states/fall.gd<>res://scripts/states/crouch.gd<>res://scripts/states/slide.gd<>res://scripts/states/wall_slide.gd
 ::res://scenes/components/::1738642283
 advance_jump_component.tscn::PackedScene::7462551532311151759::1738029401::0::1::::<><>::res://scripts/component_scripts/advance_jump_component.gd
 animation_component.tscn::PackedScene::7457779988835847060::1737758690::0::1::::<><>::res://scripts/component_scripts/animation_component.gd

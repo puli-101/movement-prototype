@@ -8,17 +8,18 @@ func enter():
 	parent.animations.play('slide')
 
 func physics_update(_delta):
-	parent.slide_component.slide(parent, parent.input_component.get_horizontal_input())
+	parent.slide_component.slide(parent, parent.last_direction)
 
 func update(_delta):
 	#TRANSITIONS
 	if !is_sliding:
 		Transitioned.emit(self,'crouch')
-	elif !parent.is_on_floor():
-		if parent.velocity.y <0:
-			Transitioned.emit(self, 'jump')
-		else: 
-			Transitioned.emit(self, 'fall')
+	elif !parent.crouch_collision_check.is_colliding():
+		if !parent.is_on_floor():
+			if parent.velocity.y <0:
+				Transitioned.emit(self, 'jump')
+			else: 
+				Transitioned.emit(self, 'fall')
 
 
 
