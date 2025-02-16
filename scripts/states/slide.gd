@@ -6,9 +6,8 @@ func enter():
 	is_sliding = true
 	parent.slide_timer.start()
 	parent.animations.play('slide')
-
-func physics_update(_delta):
 	parent.slide_component.slide(parent, parent.last_direction)
+
 
 func update(_delta):
 	#TRANSITIONS
