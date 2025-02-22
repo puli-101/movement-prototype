@@ -7,7 +7,8 @@ func enter():
 func physics_update(_delta):
 	#Handle horizontal movement
 	parent.movement_component.handle_horizontal_movement(parent, parent.input_component.get_horizontal_input())
-
+	parent.handle_horizontal_flip(parent.input_component.get_horizontal_input())
+	
 func update(_delta):
 	#TRANSITIONS
 	if parent.velocity.x == 0:

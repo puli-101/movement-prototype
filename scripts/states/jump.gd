@@ -8,6 +8,7 @@ func physics_update(delta):
 	#Handle horizontal movement
 	parent.movement_component.handle_horizontal_movement(parent, parent.input_component.get_horizontal_input())
 	parent.gravity_component.apply_jump_gravity(parent, delta)
+	parent.handle_horizontal_flip(parent.input_component.get_horizontal_input())
 	
 func update(_delta):
 	#TRANSITIONS

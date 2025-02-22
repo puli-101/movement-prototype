@@ -194,4 +194,8 @@ script = ExtResource("15_4wpwp")
 [node name="WallSlide" type="Node" parent="StateMachine"]
 script = ExtResource("16_1j2yt")
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -9)
+target_position = Vector2(17, 0)
+
 [connection signal="timeout" from="SlideComponent/SlideTimer" to="StateMachine/Slide" method="_on_slide_timer_timeout"]

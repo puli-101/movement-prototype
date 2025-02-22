@@ -32,7 +32,6 @@ func _physics_process(delta: float) -> void:
 	advanced_jump_component.handle_jump(self, input_component.get_jump_input(), input_component.get_jump_imput_released(), can_wall_jump)
 	
 	#Handle horizontal flip for animations
-	handle_horizontal_flip(input_component.get_horizontal_input())
 	get_last_direction_pressed(input_component.get_horizontal_input())
 	
 	#STATE MACHINE

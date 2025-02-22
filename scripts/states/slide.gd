@@ -8,7 +8,6 @@ func enter():
 	parent.animations.play('slide')
 	parent.slide_component.slide(parent, parent.last_direction)
 
-
 func update(_delta):
 	#TRANSITIONS
 	if !is_sliding:
