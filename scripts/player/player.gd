@@ -6,6 +6,7 @@ class_name Player
 @onready var crouch_collision_check = $CrouchCollisionCheck
 @onready var standing_collision = $StandingCollision
 @onready var slide_timer = $SlideComponent/SlideTimer
+@onready var wall_collision_check = $WallCollisionCheck
 
 #exports
 @export_subgroup("Nodes")
@@ -18,7 +19,7 @@ class_name Player
 
 
 #Variables
-var can_wall_jump = true
+var can_wall_jump = false
 var last_direction = 1.0
 
 func _ready() -> void:
@@ -31,7 +32,9 @@ func _physics_process(delta: float) -> void:
 	#COMPONENTS CALLED FOR EVERY STATE
 	advanced_jump_component.handle_jump(self, input_component.get_jump_input(), input_component.get_jump_imput_released(), can_wall_jump)
 	
-	#Handle horizontal flip for animations
+	print(input_component.get_horizontal_input())
+	
+	#Get last direction pressed for slide
 	get_last_direction_pressed(input_component.get_horizontal_input())
 	
 	#STATE MACHINE
@@ -45,7 +48,7 @@ func _physics_process(delta: float) -> void:
 func handle_horizontal_flip(move_direction: float) -> void:
 	if move_direction == 0:
 		return
-	
+	wall_collision_check.target_position = Vector2(move_direction * 17, 0)
 	animations.flip_h = false if move_direction > 0 else true
 
 func get_last_direction_pressed(move_direction: float) -> void:

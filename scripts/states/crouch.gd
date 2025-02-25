@@ -4,7 +4,6 @@ extends State
 func enter():
 	parent.animations.play('crouch')
 	parent.standing_collision.disabled = true
-	parent.can_wall_jump = false
 
 func physics_update(delta):
 	#Handle horizontal movement form crouch
@@ -18,6 +17,3 @@ func update(_delta):
 		Transitioned.emit(self, 'idle')
 	elif parent.input_component.get_slide_input():
 		Transitioned.emit(self, 'slide')
-
-func exit():
-	parent.can_wall_jump = true

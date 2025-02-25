@@ -14,7 +14,7 @@ func update(_delta):
 	#TRANSITIONS
 	if !parent.is_on_floor():
 		if parent.velocity.y > 0:
-			if parent.is_on_wall():
+			if parent.wall_collision_check.is_colliding() and parent.last_direction == parent.input_component.get_horizontal_input():
 				Transitioned.emit(self, 'wallslide')
 			else:
 				Transitioned.emit(self, 'fall')

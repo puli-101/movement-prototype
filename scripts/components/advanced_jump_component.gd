@@ -38,7 +38,7 @@ func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool,
 	if is_allowed_to_jump(body, want_to_jump):
 		jump(body)
 	
-	if body.is_on_wall_only() and want_to_jump and can_wall_jump:
+	if body.wall_collision_check.is_colliding() and want_to_jump and can_wall_jump:
 		wall_jump(body)
 	
 	handle_coyote_time(body) #If player wants to jump after falling off a ledge

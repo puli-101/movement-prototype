@@ -123,7 +123,7 @@ slide_component = NodePath("SlideComponent")
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -2)
 sprite_frames = SubResource("SpriteFrames_iec13")
-animation = &"wall_slide"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="StandingCollision" type="CollisionShape2D" parent="."]
@@ -194,7 +194,7 @@ script = ExtResource("15_4wpwp")
 [node name="WallSlide" type="Node" parent="StateMachine"]
 script = ExtResource("16_1j2yt")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="WallCollisionCheck" type="RayCast2D" parent="."]
 position = Vector2(0, -9)
 target_position = Vector2(17, 0)
 

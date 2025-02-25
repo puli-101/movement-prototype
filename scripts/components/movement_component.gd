@@ -15,7 +15,10 @@ func handle_horizontal_movement(body: CharacterBody2D, direction: float) -> void
 	var velocity_change_speed: float = 0.0
 	if just_finished_sliding(body):
 		if body.is_on_floor():
-			body.velocity.x = max_speed
+			if body.velocity.x < 0:
+				body.velocity.x = -max_speed
+			else:
+				body.velocity.x = max_speed
 		else:
 			velocity_change_speed = air_accel_speed if direction != 0 else air_decel_speed
 			body.velocity.x = move_toward(body.velocity.x, direction * max_speed, velocity_change_speed)
