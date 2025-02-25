@@ -4,6 +4,8 @@ func enter():
 	parent.animations.play('wall_slide')
 	parent.standing_collision.disabled = false
 	parent.can_wall_jump = true
+	if parent.velocity.y < 0:
+		parent.velocity.y = 0
 
 func physics_update(delta):
 	#Handle horizontal movement

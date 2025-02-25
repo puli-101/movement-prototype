@@ -6,6 +6,15 @@ var input_horizontal: float = 0.0
 #Check input in horizontal direction
 func get_horizontal_input() -> float:
 	input_horizontal = Input.get_axis("move_left", "move_right")
+	
+	#Correct joystick input
+	if input_horizontal > 0.5 :
+		input_horizontal = 1
+	elif input_horizontal < -0.5:
+		input_horizontal = -1
+	else:
+		input_horizontal = 0
+		
 	return input_horizontal
 
 #Check if jump button was pressed

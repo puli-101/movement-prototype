@@ -136,6 +136,10 @@ shape = SubResource("CircleShape2D_kh6cm")
 [node name="CrouchCollisionCheck" type="RayCast2D" parent="."]
 target_position = Vector2(0, -27)
 
+[node name="WallCollisionCheck" type="RayCast2D" parent="."]
+position = Vector2(0, -9)
+target_position = Vector2(17, 0)
+
 [node name="GravityComponent" type="Node" parent="."]
 script = ExtResource("2_fd3hf")
 
@@ -144,6 +148,7 @@ script = ExtResource("4_ov4dd")
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("5_ywfyl")
+ground_accel_speed = 30.0
 
 [node name="CrouchComponent" type="Node" parent="."]
 script = ExtResource("6_evhlh")
@@ -193,9 +198,5 @@ script = ExtResource("15_4wpwp")
 
 [node name="WallSlide" type="Node" parent="StateMachine"]
 script = ExtResource("16_1j2yt")
-
-[node name="WallCollisionCheck" type="RayCast2D" parent="."]
-position = Vector2(0, -9)
-target_position = Vector2(17, 0)
 
 [connection signal="timeout" from="SlideComponent/SlideTimer" to="StateMachine/Slide" method="_on_slide_timer_timeout"]
