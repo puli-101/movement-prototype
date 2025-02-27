@@ -3,6 +3,7 @@ extends State
 func enter():
 	parent.animations.play('wall_slide')
 	parent.standing_collision.disabled = false
+	parent.standing_hitbox.disabled = false
 	parent.can_wall_jump = true
 	if parent.velocity.y < 0:
 		parent.velocity.y = 0
@@ -25,3 +26,7 @@ func update(_delta):
 
 func exit():
 	parent.can_wall_jump = false
+
+
+func _on_killzone_body_entered(body: Node2D) -> void:
+	Transitioned.emit(self, 'dead')

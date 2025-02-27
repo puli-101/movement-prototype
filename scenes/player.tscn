@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://q6gm0d515tcr"]
+[gd_scene load_steps=31 format=3 uid="uid://q6gm0d515tcr"]
 
 [ext_resource type="Texture2D" uid="uid://bn2fj84kbc584" path="res://assets/placeholders.png" id="1_46tqb"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_vcj7m"]
@@ -16,6 +16,8 @@
 [ext_resource type="Script" path="res://scripts/states/crouch.gd" id="13_ckr6c"]
 [ext_resource type="Script" path="res://scripts/states/slide.gd" id="15_4wpwp"]
 [ext_resource type="Script" path="res://scripts/states/wall_slide.gd" id="16_1j2yt"]
+[ext_resource type="Script" path="res://scripts/states/dead.gd" id="17_b84rx"]
+[ext_resource type="PackedScene" uid="uid://dt2g2ylg5ranv" path="res://scenes/Killzone.tscn" id="17_sp6dx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mhxun"]
 atlas = ExtResource("1_46tqb")
@@ -111,6 +113,13 @@ height = 54.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_kh6cm"]
 radius = 14.0022
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gyrm4"]
+radius = 13.0
+height = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u1jxo"]
+radius = 13.0
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "advanced_jump_component", "crouch_component", "slide_component")]
 script = ExtResource("1_vcj7m")
 gravity_component = NodePath("GravityComponent")
@@ -199,4 +208,25 @@ script = ExtResource("15_4wpwp")
 [node name="WallSlide" type="Node" parent="StateMachine"]
 script = ExtResource("16_1j2yt")
 
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("17_b84rx")
+
+[node name="Killzone" parent="." instance=ExtResource("17_sp6dx")]
+collision_layer = 4
+collision_mask = 4
+
+[node name="StandingHitBox" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("CapsuleShape2D_gyrm4")
+
+[node name="CrouchingHitBox" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 13)
+shape = SubResource("CircleShape2D_u1jxo")
+
 [connection signal="timeout" from="SlideComponent/SlideTimer" to="StateMachine/Slide" method="_on_slide_timer_timeout"]
+[connection signal="body_entered" from="Killzone" to="StateMachine/Idle" method="_on_killzone_body_entered"]
+[connection signal="body_entered" from="Killzone" to="StateMachine/Run" method="_on_killzone_body_entered"]
+[connection signal="body_entered" from="Killzone" to="StateMachine/Jump" method="_on_killzone_body_entered"]
+[connection signal="body_entered" from="Killzone" to="StateMachine/Fall" method="_on_killzone_body_entered"]
+[connection signal="body_entered" from="Killzone" to="StateMachine/Crouch" method="_on_killzone_body_entered"]
+[connection signal="body_entered" from="Killzone" to="StateMachine/Slide" method="_on_killzone_body_entered"]
+[connection signal="body_entered" from="Killzone" to="StateMachine/WallSlide" method="_on_killzone_body_entered"]

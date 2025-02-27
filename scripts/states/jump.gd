@@ -17,3 +17,7 @@ func update(_delta):
 			Transitioned.emit(self, 'fall')
 	else:
 		Transitioned.emit(self, 'idle')
+
+
+func _on_killzone_body_entered(body: Node2D) -> void:
+	Transitioned.emit(self, 'dead')

@@ -3,6 +3,7 @@ extends State
 func enter():
 	parent.animations.play('run')
 	parent.standing_collision.disabled = false
+	parent.standing_hitbox.disabled = false
 
 func physics_update(_delta):
 	#Handle horizontal movement
@@ -20,3 +21,7 @@ func update(_delta):
 			Transitioned.emit(self, 'fall')
 	if parent.input_component.get_crouch_input():
 		Transitioned.emit(self, 'crouch')
+
+
+func _on_killzone_body_entered(body: Node2D) -> void:
+	Transitioned.emit(self, 'dead')

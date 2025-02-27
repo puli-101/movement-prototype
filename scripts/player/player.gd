@@ -7,6 +7,8 @@ class_name Player
 @onready var standing_collision = $StandingCollision
 @onready var slide_timer = $SlideComponent/SlideTimer
 @onready var wall_collision_check = $WallCollisionCheck
+@onready var standing_hitbox = $Killzone/StandingHitBox
+@onready var killzone = $Killzone
 
 #exports
 @export_subgroup("Nodes")
@@ -32,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	#COMPONENTS CALLED FOR EVERY STATE
 	advanced_jump_component.handle_jump(self, input_component.get_jump_input(), input_component.get_jump_imput_released(), can_wall_jump)
 	
-	print(input_component.get_horizontal_input())
+	#print(input_component.get_horizontal_input())
 	
 	#Get last direction pressed for slide
 	get_last_direction_pressed(input_component.get_horizontal_input())

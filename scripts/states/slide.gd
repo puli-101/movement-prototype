@@ -23,3 +23,7 @@ func update(_delta):
 
 func _on_slide_timer_timeout() -> void:
 	is_sliding = false
+
+
+func _on_killzone_body_entered(body: Node2D) -> void:
+	Transitioned.emit(self, 'dead')
